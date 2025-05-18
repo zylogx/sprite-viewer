@@ -40,6 +40,8 @@ int main()
     const char* rowOptions = "Row 1;Row 2;Row 3";
 
     std::unique_ptr<Sprite> sprite {nullptr};
+
+    float textureViewScale = 1.0f;
     
     while (!WindowShouldClose())
     {
@@ -75,7 +77,7 @@ int main()
         }
 
         const int uiLeft = screenWidth - 250;
-        GuiGroupBox((Rectangle){uiLeft, 20, 230, 180}, "Settings");
+        GuiGroupBox((Rectangle){uiLeft, 20, 230, 180}, "Sprite Settings");
 
         GuiSliderBar(
             (Rectangle){uiLeft + 80, 50 + 20*0, 100, 15},
@@ -122,6 +124,17 @@ int main()
             }
         }
 
+        GuiGroupBox((Rectangle){uiLeft, 240, 230, 180}, "Texture View Settings");
+
+        GuiSliderBar(
+            (Rectangle){uiLeft + 80, 270 + 20*0, 100, 15},
+            "Scale",
+            TextFormat("%3.2f", textureViewScale),
+            &textureViewScale,
+            0.5f,
+            2.0f
+        );
+
         //----------------------------------------------------------------
         if (fileDialogState.windowActive)
         {
@@ -155,7 +168,7 @@ int main()
 
         if (sprite != nullptr)
         {
-            const float textureScale = 1.4f;
+            const float textureScale = textureViewScale;
 
             const Vector2 texturePos {screenWidth - 570, screenHeight - 240};
             const Rectangle frameRec {sprite->GetFrameRec()};
