@@ -31,9 +31,9 @@ int main()
     float frameScale = 3.0f;
     float frameSpeed = 8.0f;
 
-    int totalFrame = 6;
-    const char* totalFrames {"0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20"};
-    bool totalFrameDropdown = false;
+    int totalFrames = 6;
+    const char* charTotalFrames {"0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20"};
+    bool totalFramesDropdown = false;
 
     int selectedRow = 0;
     bool rowDropdown = false;
@@ -47,7 +47,7 @@ int main()
     {
         if (sprite != nullptr)
         {
-            sprite->Update(pos, frameScale, frameSpeed, selectedRow, frameFacing, totalFrame);
+            sprite->Update(pos, frameScale, frameSpeed, selectedRow, frameFacing, totalFrames);
         }
 
         if (fileDialogState.SelectFilePressed)
@@ -109,22 +109,22 @@ int main()
             rowDropdown = !rowDropdown;
         }
 
-        DrawText("Total Frame", uiLeft + 15, 55 + 20*3, 9, BLACK);
+        DrawText("Total Frames", uiLeft + 10, 55 + 20*3, 9, BLACK);
 
         if (!rowDropdown)
         {
             if (GuiDropdownBox(
                     (Rectangle){uiLeft + 80, 55 + 20*3, 100, 15},
-                    totalFrames,
-                    &totalFrame,
-                    totalFrameDropdown
+                    charTotalFrames,
+                    &totalFrames,
+                    totalFramesDropdown
                 ))
             {
-                totalFrameDropdown = !totalFrameDropdown;
+                totalFramesDropdown = !totalFramesDropdown;
             }
         }
 
-        if (!totalFrameDropdown)
+        if (!totalFramesDropdown)
         {
             GuiGroupBox((Rectangle){uiLeft, 240, 230, 180}, "Texture View Settings");
 

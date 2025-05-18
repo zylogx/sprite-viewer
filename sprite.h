@@ -68,9 +68,9 @@ public:
         frameScale = frameScale_;
     }
 
-    void Update(Vector2 position_, float frameScale_, float frameSpeed_, int selectedRow_, float frameFacing_, int totalRow_ = 0)
+    void Update(Vector2 position_, float frameScale_, float frameSpeed_, int selectedRow_, float frameFacing_, int totalFrames_ = 0)
     {
-        const int framesPerRow = spriteSheet.width/frameWidth*totalRow_/frameColumns;
+        const int framesPerRow = spriteSheet.width/frameWidth*totalFrames_/frameColumns;
 
         frameScale = frameScale_;
         frameSpeed = frameSpeed_;
