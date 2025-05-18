@@ -124,16 +124,19 @@ int main()
             }
         }
 
-        GuiGroupBox((Rectangle){uiLeft, 240, 230, 180}, "Texture View Settings");
+        if (!totalFrameDropdown)
+        {
+            GuiGroupBox((Rectangle){uiLeft, 240, 230, 180}, "Texture View Settings");
 
-        GuiSliderBar(
-            (Rectangle){uiLeft + 80, 270 + 20*0, 100, 15},
-            "Scale",
-            TextFormat("%3.2f", textureViewScale),
-            &textureViewScale,
-            0.5f,
-            2.0f
-        );
+            GuiSliderBar(
+                (Rectangle){uiLeft + 80, 270 + 20*0, 100, 15},
+                "Scale",
+                TextFormat("%3.2f", textureViewScale),
+                &textureViewScale,
+                0.5f,
+                2.0f
+            );
+        }
 
         //----------------------------------------------------------------
         if (fileDialogState.windowActive)
