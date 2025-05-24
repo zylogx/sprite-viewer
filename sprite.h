@@ -50,6 +50,11 @@ public:
         UnloadTexture(spriteSheet);
     }
 
+    int GetCurrentFrame() const
+    {
+        return currentFrame;
+    }
+
     Texture2D GetTexture() const
     {
         return spriteSheet;
@@ -68,28 +73,58 @@ public:
         frameScale = frameScale_;
     }
 
-    void Update(Vector2 position_, float frameScale_, float frameSpeed_, int selectedRow_, float frameFacing_, int totalFrames_ = 0)
+    float timeAccumulator = 0.0f;
+
+    void Update(Vector2 position_, float frameScale_, float frameSpeed_, int selectedRow_, float frameFacing_, int totalFrames_, bool advanceRow)
     {
-        const int framesPerRow = spriteSheet.width/frameWidth*totalFrames_/frameColumns;
+        const int framesPerRow = (!advanceRow) ? spriteSheet.width/frameWidth*totalFrames_/frameColumns : spriteSheet.width/frameWidth*10/10;
 
-        frameScale = frameScale_;
-        frameSpeed = frameSpeed_;
-        frameFacing = frameFacing_;
-        position = position_;
-
-        frameCounter++;
-        if (frameCounter >= (GetFPS()/frameSpeed))
+        if (!advanceRow)
         {
-            currentFrame++;
-            if (currentFrame >= framesPerRow) currentFrame = 0;
+            frameScale = frameScale_;
+            frameSpeed = frameSpeed_;
+            frameFacing = frameFacing_;
+            position = position_;
+
+            frameCounter++;
+            if (frameCounter >= (GetFPS()/frameSpeed))
+            {
+                currentFrame++;
+                if (currentFrame >= framesPerRow) currentFrame = 0;
+
+                const int row = selectedRow_;
+                const int col = currentFrame;
+
+                frameRec.x = col*frameWidth;
+                frameRec.y = row*frameHeight;
+
+                frameCounter = 0;
+            }
+        }
+        else
+        {
+            frameScale = frameScale_;
+            frameFacing = frameFacing_;
+            position = position_;
+
+            // Get current FPS and calculate animation speed
+            float animationFPS = static_cast<float>(GetFPS());
+            float secondsPerFrame = 1.0f/animationFPS;
+
+            timeAccumulator += GetFrameTime();
+
+            if (timeAccumulator >= secondsPerFrame)
+            {
+                currentFrame++;
+                if (currentFrame >= framesPerRow) currentFrame = 0;
+                timeAccumulator -= secondsPerFrame;
+            }
 
             const int row = selectedRow_;
             const int col = currentFrame;
 
-            frameRec.x = col*frameWidth;
-            frameRec.y = row*frameHeight;
-
-            frameCounter = 0;
+            frameRec.x = col * frameWidth;
+            frameRec.y = row * frameHeight;
         }
     }
 
