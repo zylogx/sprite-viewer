@@ -144,6 +144,7 @@ int main()
             {
                 strcpy(fileNameToLoad, TextFormat("%s" PATH_SEPERATOR "%s", fileDialogState.dirPathText, fileDialogState.fileNameText));
                 
+                sprite.reset();
                 sprite = std::make_unique<Sprite>(pos, fileNameToLoad, frameCol, frameRow, frameFacing);
             }
             else
@@ -218,6 +219,7 @@ int main()
                 frameColDropdown
             ))
         {
+            sprite.reset();
             frameColDropdown = !frameColDropdown;
         }
 
@@ -230,6 +232,7 @@ int main()
                 frameRowDropdown
             ) && !frameColDropdown)
         {
+            sprite.reset();
             frameRowDropdown = !frameRowDropdown;
         }
 

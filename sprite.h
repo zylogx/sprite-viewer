@@ -123,8 +123,8 @@ public:
             const int row = selectedRow_;
             const int col = currentFrame;
 
-            frameRec.x = col * frameWidth;
-            frameRec.y = row * frameHeight;
+            frameRec.x = col*frameWidth;
+            frameRec.y = row*frameHeight;
         }
     }
 
