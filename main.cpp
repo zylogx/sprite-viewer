@@ -46,7 +46,7 @@ static void DrawTexturePreview(const Vector2& pos, const Sprite* sprite, int wid
         DrawTexturePro(
             texture,
             (Rectangle){0, 0, static_cast<float>(texture.width), static_cast<float>(texture.height)}, // Use full texture
-            (Rectangle){pos.x, pos.y, static_cast<float>(textureWidth), static_cast<float>(textureHeight)}, // Draw at (screenWidth - 565, screenHeight - 350), size 500x400
+            (Rectangle){pos.x, pos.y, static_cast<float>(textureWidth), static_cast<float>(textureHeight)},
             (Vector2){0, 0}, // Origin at top-left
             0.0f,            // No rotation
             WHITE            // No tint
@@ -95,7 +95,7 @@ int main()
     float frameScale = 3.0f;
     float frameSpeed = 8.0f;
 
-    int totalFrames = 6;
+    int totalFrames = 10;
     bool totalFramesDropdown = false;
     const char* charTotalFrames {"0;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20"};
 
@@ -119,17 +119,17 @@ int main()
 
         if (sprite != nullptr)
         {
-            if (sprite->GetCurrentFrame() >= 9 && !hasAdvancedRow)
+            if (sprite->GetCurrentFrame() >= totalFrames-1 && !hasAdvancedRow)
             {
                 selectedRow = selectedRow + 1;
                 hasAdvancedRow = true;
             }
-            else if (sprite->GetCurrentFrame() < 9 && selectedRow == 6)
+            else if (sprite->GetCurrentFrame() < totalFrames-1 && selectedRow == 6)
             {
                 selectedRow = 0;
                 hasAdvancedRow = false;
             }
-            else if (sprite->GetCurrentFrame() < 9)
+            else if (sprite->GetCurrentFrame() < totalFrames-1)
             {
                 hasAdvancedRow = false;
             }
