@@ -119,17 +119,17 @@ int main()
 
         if (sprite != nullptr)
         {
-            if (sprite->GetCurrentFrame() >= totalFrames-1 && !hasAdvancedRow)
+            if ((sprite->GetCurrentFrame() + 1) >= totalFrames && !hasAdvancedRow)
             {
                 selectedRow = selectedRow + 1;
                 hasAdvancedRow = true;
             }
-            else if (sprite->GetCurrentFrame() < totalFrames-1 && selectedRow == 6)
+            else if (sprite->GetCurrentFrame() < totalFrames && selectedRow == frameRow)
             {
                 selectedRow = 0;
                 hasAdvancedRow = false;
             }
-            else if (sprite->GetCurrentFrame() < totalFrames-1)
+            else if (sprite->GetCurrentFrame() < totalFrames)
             {
                 hasAdvancedRow = false;
             }
